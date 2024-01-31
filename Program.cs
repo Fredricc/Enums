@@ -1,0 +1,60 @@
+﻿namespace Enums
+{
+    enum TemperatureUnit
+    {
+        Celcius,
+        Fahrenheit,
+        Kelvin
+    }
+
+    class Temperature
+    {
+        public Temperature(TemperatureUnit unit, decimal value)
+        {
+            Unit = unit;
+            Value = value;
+        }
+
+        public TemperatureUnit Unit { get; set; }
+        public decimal Value { get; set; }
+
+        public decimal ValueInCelsius 
+        { get
+            {
+                if(Unit == TemperatureUnit.Celcius)
+                {
+                    return Value;
+                }
+                if (Unit == TemperatureUnit.Fahrenheit)
+                {
+                    return (Value - 32) * 5 / 9;
+                }
+                if(Unit == TemperatureUnit.Kelvin)
+                {
+                    return Value - 273.15m;
+                }
+                return 0;
+            } 
+            
+    }
+    internal class Program
+    {
+            static void Main(string[] args)
+            {
+                var temperature = new Temperature(TemperatureUnit.Celcius, 10);
+
+                //underlying values are int
+                Console.WriteLine((int)TemperatureUnit.Celcius);
+                Console.WriteLine((int)TemperatureUnit.Fahrenheit);
+                Console.WriteLine((int)TemperatureUnit.Kelvin);
+
+                //Casting from int to TemperatureUnit
+                //Warning: 7 can be casted but not defind
+                int temperature2 = 7;
+                TemperatureUnit kelvin = (TemperatureUnit)temperature2;
+                Console.WriteLine(kelvin);
+
+            }
+            }
+    }
+}
